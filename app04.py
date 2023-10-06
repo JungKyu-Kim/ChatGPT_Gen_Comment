@@ -30,11 +30,22 @@ def draw_ui():
             'Meets',
             'Marginally Meets',
             'Does not Meet'
-        )
+        ),
+        index=2
         )
 
     # Temperature
+    temperature = st.select_slider(
+        '피드백 다양성',
+        options=['일관적', '보통', '창의적']
+        )
 
     # length of result
+    length = st.number_input(
+        '글자수',
+        min_value=0,
+        value=300,
+        format="%d"
+        )
 
 draw_ui()
