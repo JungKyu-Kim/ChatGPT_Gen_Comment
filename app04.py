@@ -68,7 +68,7 @@ def draw_ui():
     input_length = st.number_input(
         '글자수',
         min_value=min_length_of_result,
-        value=init_length,
+        value=init_length_of_result,
         format="%d"
         )
 
