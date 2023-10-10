@@ -41,6 +41,14 @@ def draw_ui():
         ],
         index=2
         )
+    grade = {
+        'Highly Exceeds' : 5,
+        'Exceeds' : 4,
+        'Meets' : 3,
+        'Marginally Meets' : 2,
+        'Does not Meet' : 1
+    }
+    st.write('피드백 등급:', tempergradeature[input_selected_grade])
 
     # Temperature
     input_selected_temperature = st.select_slider(
@@ -48,9 +56,9 @@ def draw_ui():
         options=['일관적', '보통', '창의적']
         )
     temperature = {
-    '일관적' : 0.5,
-    '보통' : 1,
-    '창의적' : 1.5
+        '일관적' : 0.5,
+        '보통' : 1,
+        '창의적' : 1.5
     }
 
     st.write('피드백 다양성:', temperature[input_selected_temperature])
