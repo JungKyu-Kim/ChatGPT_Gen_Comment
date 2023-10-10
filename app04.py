@@ -73,10 +73,10 @@ def draw_ui():
         )
 
     st.write('---------------')
-    st.write('이름', input_name)
-    st.write('Fact Gathering', input_fact_gathering)
-    st.write('피드백 등급', input_grade)
-    st.write('피드백 다양성', input_temperature)
-    st.write('글자수', input_length)
+    st.write('이름 :', input_name)
+    st.write('Fact Gathering :', input_fact_gathering)
+    st.write('피드백 등급 :', input_grade)
+    st.write('피드백 다양성 :', input_temperature)
+    st.write('글자수 :', input_length)
 
 draw_ui()
