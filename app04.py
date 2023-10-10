@@ -48,7 +48,7 @@ def draw_ui():
         'Marginally Meets' : 2,
         'Does not Meet' : 1
     }
-    st.write('피드백 등급:', tempergradeature[input_selected_grade])
+    st.write('피드백 등급:', grade[input_selected_grade])
 
     # Temperature
     input_selected_temperature = st.select_slider(
