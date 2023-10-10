@@ -29,28 +29,21 @@ def draw_ui():
         )
 
     # feedback grade
-    input_selected_grade = st.selectbox(
-        '피드백 등급',
-        [
-            'Highly Exceeds',
-            'Exceeds',
-            'Meets',
-            'Marginally Meets',
-            'Does not Meet'
-        ],
-        index=2
-        )
-    grade = {
+    grade_set = {
         'Highly Exceeds' : 5,
         'Exceeds' : 4,
         'Meets' : 3,
         'Marginally Meets' : 2,
         'Does not Meet' : 1
     }
+    grade_list = list(grade_set.keys())  
+    input_selected_grade = st.selectbox(
+        '피드백 등급',
+        grade_list,
+        index=2
+        )
 
-    st.write('그래이드')
-    st.write(type(grade))
-    st.write('피드백 등급:', grade[input_selected_grade])
+    st.write('피드백 등급:', grade_set[input_selected_grade])
 
     # Temperature
     input_selected_temperature = st.select_slider(
