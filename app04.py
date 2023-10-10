@@ -1,7 +1,8 @@
 import streamlit as st
 
 init_name = '홍길동'
-init_fact_gathering = """-산학 협력 과제 3건 달성
+init_fact_gathering = """
+-산학 협력 과제 3건 달성
  + 반도체 수요예측 과제
  + 물류 최저화 과제
  + Vision 품질 검사 모델 개발 과제
@@ -46,7 +47,6 @@ def draw_ui():
         'Marginally Meets' : 2,
         'Does not Meet' : 1
     }
-    st.write('타입', type(grade))
     st.write('피드백 등급:', grade[input_selected_grade])
 
     # Temperature
