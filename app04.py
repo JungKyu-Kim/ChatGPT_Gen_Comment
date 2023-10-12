@@ -57,11 +57,11 @@ if 'inp' not in st.session_state:
     st.session_state.inp = []
 
 def add_form():
-    x = st.session_state.inp
-    x.append('a')
-    st.session_state.inp = x
     i = Input()
     i.set_result(input_name, input_fact_gathering, input_grade, input_temperature, input_length)
+    inp = st.session_state.inp
+    inp.append(i)
+    st.session_state.inp = inp
     # st.session_state.inp.append(Input.set_result(input_name, input_fact_gathering, input_grade, input_temperature, input_length))
 
 with st.form(key="my_form"):
