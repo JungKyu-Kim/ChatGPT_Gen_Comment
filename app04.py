@@ -37,7 +37,7 @@ input_name=None
 input_fact_gathering=None
 input_grade=None
 input_temperature=None
-submitted=None
+input_length=None
 
 class Input():
     name = None
@@ -57,7 +57,7 @@ if 'inp' not in st.session_state:
     st.session_state.inp = []
 
 def add_form():
-    st.session_state.inp.append(Input.set_result(input_name, input_fact_gathering, input_grade, input_temperature, submitted))
+    st.session_state.inp.append(Input.set_result(input_name, input_fact_gathering, input_grade, input_temperature, input_length))
 
 with st.form(key="my_form"):
     # title and description
