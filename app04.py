@@ -7,8 +7,6 @@ SYSTEM_CONTENT = st.secrets["system_content"]
 
 st.set_page_config(layout="wide")
 
-st.write(SYSTEM_CONTENT)
-
 init_name = '홍길동'
 init_fact_gathering = """
 -산학 협력 과제 3건 달성
@@ -58,15 +56,15 @@ class Input():
     grade = None
     temperature = None
     length = None
-    sys_prompt = None
+    model = None
 
-    def set_result(self, input_name, input_fact_gathering, input_grade, input_temperature, input_length):
+    def set_result(self, input_name, input_fact_gathering, input_grade, input_temperature, input_length, input_model):
         self.name = input_name
         self.fact_gathering = input_fact_gathering
         self.grade = input_grade
         self.temperature = input_temperature
         self.length = input_length
-        self.sys_prompt = SYSTEM_CONTENT + self.name
+        self.model = input_model
 
 def add_input():
     input_name = st.session_state.input_name
@@ -79,12 +77,12 @@ def add_input():
     input_model = st.session_state.input_model
 
     ##################
-
+    sys_prompt = SYSTEM_CONTENT + input_name
     ##################
 
     # gpt_prompt = [{
     #     "role": "system",
-    #     "content": SYSTEM_CONTENT
+    #     "content": sys_prompt
     # }, {
     #     "role": "user",
     #     "content": USER_CONTENT
@@ -104,20 +102,20 @@ def add_input():
     #     )
 
     i = Input()
-    i.set_result(input_name, input_fact_gathering, input_grade, input_temperature, input_length)
+    i.set_result(input_name, input_fact_gathering, input_grade, input_temperature, input_length, input_model)
 
     inp = st.session_state.inp
     inp.append(i)
     st.session_state.inp = inp
 
-def draw_result(input_name, input_fact_gathering, input_grade, input_temperature, input_length, sys_prompt):
+def draw_result(input_name, input_fact_gathering, input_grade, input_temperature, input_length, input_model):
     st.write('---------------')
     st.write('이름 :', input_name)
     st.write('Fact Gathering :', input_fact_gathering)
     st.write('피드백 등급 :', input_grade)
     st.write('피드백 다양성 :', input_temperature)
     st.write('글자수 :', input_length)
-    st.write('sys_prompt', sys_prompt)
+    st.write('GPT모델 :', input_model)
 
 # st.session_state.inp
 # st.write(len(st.session_state.inp))
@@ -187,4 +185,4 @@ with col2:
     if(len(st.session_state.inp) > 0):
         for x in range(len(st.session_state.inp)):
             i = st.session_state.inp[x]
-            draw_result(i.name, i.fact_gathering, i.grade, i.temperature, i.length, i.sys_prompt)
+            draw_result(i.name, i.fact_gathering, i.grade, i.temperature, i.length, i.model)
