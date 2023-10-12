@@ -60,6 +60,7 @@ def add_form():
     x = st.session_state.inp
     x.append('a')
     st.session_state.inp = x
+    i = Input()
     # st.session_state.inp.append(Input.set_result(input_name, input_fact_gathering, input_grade, input_temperature, input_length))
 
 with st.form(key="my_form"):
