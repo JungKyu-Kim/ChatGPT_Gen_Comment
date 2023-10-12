@@ -74,12 +74,12 @@ input_length = st.number_input(
     format="%d"
     )
 
-submit = st.form_submit_button("Submit")
+# submit = st.form_submit_button("Submit")
 
-if submit:
-    with st.spinner('Wait for it...'):
-        time.sleep(5)
-    st.success('Done!')
+# if submit:
+#     with st.spinner('Wait for it...'):
+#         time.sleep(5)
+#     st.success('Done!')
 
 st.write('---------------')
 st.write('이름 :', input_name)
