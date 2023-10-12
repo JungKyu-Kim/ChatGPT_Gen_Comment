@@ -76,16 +76,32 @@ with st.form("my_form"):
 
     submitted = st.form_submit_button("Submit")
 
-def draw_result():
-    st.write('---------------')
-    st.write('이름 :', input_name)
-    st.write('Fact Gathering :', input_fact_gathering)
-    st.write('피드백 등급 :', input_grade)
-    st.write('피드백 다양성 :', input_temperature)
-    st.write('글자수 :', input_length)
+class Box():
+    name = None
+    fact_gathering = None
+    grade = None
+    temperature = None
+    length = None
+
+    def set_result(input_name, input_fact_gathering, input_grade, input_temperature, input_length):
+        name = input_name
+        fact_gathering = input_fact_gathering
+        grade = input_grade
+        temperature = input_temperature
+        length = input_length
+
+    def draw_result(self):
+        st.write('---------------')
+        st.write('이름 :', self.name)
+        st.write('Fact Gathering :', self.fact_gathering)
+        st.write('피드백 등급 :', self.grade)
+        st.write('피드백 다양성 :', self.temperature)
+        st.write('글자수 :', self.length)
 
 if submitted:
-    draw_result()
+    a = Box()
+    a.set_result(input_name, input_fact_gathering, input_grade, input_temperature, input_length)
+    a.draw_result()
     with st.spinner('Wait for it...'):
         time.sleep(5)
     st.success('Done!')
