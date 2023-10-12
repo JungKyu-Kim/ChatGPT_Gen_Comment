@@ -55,7 +55,6 @@ class Input():
 
 if 'inp' not in st.session_state:
     st.session_state.inp = []
-    st.session_state.inp.append(Input(input_name, input_fact_gathering, input_grade, input_temperature, submitted))
 
 # def add_form():
 #     st.session_state.inp.append(Input(input_name, input_fact_gathering, input_grade, input_temperature, submitted))
