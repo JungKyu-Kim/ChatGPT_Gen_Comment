@@ -170,6 +170,7 @@ with col1:
             '피드백 등급',
             grade_list,
             index=2,
+            disabled=True,
             key='input_grade_text'
             )
 
