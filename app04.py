@@ -83,12 +83,12 @@ class Box():
     temperature = None
     length = None
 
-    def set_result(input_name, input_fact_gathering, input_grade, input_temperature, input_length):
-        name = input_name
-        fact_gathering = input_fact_gathering
-        grade = input_grade
-        temperature = input_temperature
-        length = input_length
+    def set_result(self, input_name, input_fact_gathering, input_grade, input_temperature, input_length):
+        self.name = input_name
+        self.fact_gathering = input_fact_gathering
+        self.grade = input_grade
+        self.temperature = input_temperature
+        self.length = input_length
 
     def draw_result(self):
         st.write('---------------')
