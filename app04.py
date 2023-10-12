@@ -82,16 +82,16 @@ def add_input():
 
     ##################
     sys_prompt = system_content + input_name
-    u_prompt = user_prompt1 + input_name + user_prompt2 + str(input_length) + user_prompt3 + input_name + user_prompt4 + input_fact_gathering
+    usr_prompt = user_prompt1 + input_name + user_prompt2 + str(input_length) + user_prompt3 + input_name + user_prompt4 + input_fact_gathering
     ##################
 
-    # gpt_prompt = [{
-    #     "role": "system",
-    #     "content": sys_prompt
-    # }, {
-    #     "role": "user",
-    #     "content": USER_CONTENT
-    # }]
+    gpt_prompt = [{
+        "role": "system",
+        "content": sys_prompt
+    }, {
+        "role": "user",
+        "content": usr_prompt
+    }]
 
     # with st.spinner("Waiting for ChatGPT..."):
     #     gpt_response = openai.ChatCompletion.create(
