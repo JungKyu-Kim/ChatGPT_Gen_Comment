@@ -106,17 +106,19 @@ def add_set():
             temperature=input_temperature,
             max_tokens=3000,
             top_p=1,
+            stream=True
         )
+    gpt_response
 
-    model = gpt_response.model
-    output = gpt_response.choices[0]['message']['content']
+    # model = gpt_response.model
+    # output = gpt_response.choices[0]['message']['content']
 
-    g = Gen_set()
-    g.set_result(input_name, input_fact_gathering, input_grade, input_temperature, input_length, model, output)
+    # g = Gen_set()
+    # g.set_result(input_name, input_fact_gathering, input_grade, input_temperature, input_length, model, output)
 
-    gen = st.session_state.gen
-    gen.append(g)
-    st.session_state.gen = gen
+    # gen = st.session_state.gen
+    # gen.append(g)
+    # st.session_state.gen = gen
 
 def draw_result(input_name, input_fact_gathering, input_grade, input_temperature, input_length, p_model, p_output):
     st.write('---------------')
@@ -127,9 +129,6 @@ def draw_result(input_name, input_fact_gathering, input_grade, input_temperature
     st.write('글자수 :', input_length)
     st.write('GPT모델 :', p_model)
     st.write('Output :', p_output)
-
-# st.session_state.inp
-# st.write(len(st.session_state.inp))
 
 st.title("Peoply 📝FeedbackGPT🤖")
 st.text("피평가자에 대한 MBO 내용을 입력하면, ChatGPT가 MBO 피드백을 생성합니다.")
