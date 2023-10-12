@@ -93,18 +93,18 @@ def add_input():
         "content": usr_prompt
     }]
 
-    # with st.spinner("Waiting for ChatGPT..."):
-    #     gpt_response = openai.ChatCompletion.create(
-    #         # model used here is ChatGPT
-    #         # You can use all these models for this endpoint:
-    #         # gpt-4, gpt-4-0314, gpt-4-32k, gpt-4-32k-0314,
-    #         # gpt-3.5-turbo, gpt-3.5-turbo-0301
-    #         model=input_model,
-    #         messages=gpt_prompt,
-    #         temperature=input_temperature,
-    #         max_tokens=3000,
-    #         top_p=1,
-    #     )
+    with st.spinner("Waiting for ChatGPT..."):
+        gpt_response = openai.ChatCompletion.create(
+            # model used here is ChatGPT
+            # You can use all these models for this endpoint:
+            # gpt-4, gpt-4-0314, gpt-4-32k, gpt-4-32k-0314,
+            # gpt-3.5-turbo, gpt-3.5-turbo-0301
+            model=input_model,
+            messages=gpt_prompt,
+            temperature=input_temperature,
+            max_tokens=3000,
+            top_p=1,
+        )
 
     i = Input()
     i.set_result(input_name, input_fact_gathering, input_grade, input_temperature, input_length, input_model)
