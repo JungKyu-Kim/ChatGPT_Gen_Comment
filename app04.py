@@ -33,8 +33,33 @@ temperature_set = {
 }
 temperature_list = list(temperature_set.keys())  
 
+input_name=None
+input_fact_gathering=None
+input_grade=None
+input_temperature=None
+submitted=None
 
-with st.form("my_form"):
+class Input():
+    name = None
+    fact_gathering = None
+    grade = None
+    temperature = None
+    length = None
+
+    def set_result(self, input_name, input_fact_gathering, input_grade, input_temperature, input_length):
+        self.name = input_name
+        self.fact_gathering = input_fact_gathering
+        self.grade = input_grade
+        self.temperature = input_temperature
+        self.length = input_length
+
+multi_input = []
+
+def add_form():
+    multi_input.append(Input(input_name, input_fact_gathering, input_grade, input_temperature, submitted))
+
+
+with st.form(key="my_form"):
     # title and description
     st.title("Peoply FeedbackGPT")
     st.text("Peoply FeedbackGPT 입니다.")
@@ -74,31 +99,15 @@ with st.form("my_form"):
         format="%d"
         )
 
-    submitted = st.form_submit_button("Submit")
+    submitted = st.form_submit_button("Submit",on_click=add_form)
 
-class Box():
-    name = None
-    fact_gathering = None
-    grade = None
-    temperature = None
-    length = None
+def draw_result(input_name, input_fact_gathering, input_grade, input_temperature, input_length):
+    st.write('---------------')
+    st.write('이름 :', input_name)
+    st.write('Fact Gathering :', input_fact_gathering)
+    st.write('피드백 등급 :', input_grade)
+    st.write('피드백 다양성 :', input_temperature)
+    st.write('글자수 :', input_length)
 
-    def draw_result(self, input_name, input_fact_gathering, input_grade, input_temperature, input_length):
-        self.name = input_name
-        self.fact_gathering = input_fact_gathering
-        self.grade = input_grade
-        self.temperature = input_temperature
-        self.length = input_length
-        st.write('---------------')
-        st.write('이름 :', self.name)
-        st.write('Fact Gathering :', self.fact_gathering)
-        st.write('피드백 등급 :', self.grade)
-        st.write('피드백 다양성 :', self.temperature)
-        st.write('글자수 :', self.length)
-
-multi_containers = []
-
-if submitted:
-    multi_containers.append(Box().draw_result(input_name, input_fact_gathering, input_grade, input_temperature, input_length))
-    st.write(len(multi_containers))
-    
+for i in multi_input:
+    draw_result(i.name, i.fact_gathering, i.grade, i.temperature, i.length)
