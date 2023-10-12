@@ -76,14 +76,16 @@ with st.form("my_form"):
 
     submitted = st.form_submit_button("Submit")
 
+def draw_result():
+    st.write('---------------')
+    st.write('이름 :', input_name)
+    st.write('Fact Gathering :', input_fact_gathering)
+    st.write('피드백 등급 :', input_grade)
+    st.write('피드백 다양성 :', input_temperature)
+    st.write('글자수 :', input_length)
+
 if submitted:
+    draw_result()
     with st.spinner('Wait for it...'):
         time.sleep(5)
     st.success('Done!')
-
-st.write('---------------')
-st.write('이름 :', input_name)
-st.write('Fact Gathering :', input_fact_gathering)
-st.write('피드백 등급 :', input_grade)
-st.write('피드백 다양성 :', input_temperature)
-st.write('글자수 :', input_length)
