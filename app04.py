@@ -90,7 +90,7 @@ def add_input():
 
     ##################
     sys_prompt = system_content + input_name
-    u_prompt = user_prompt1
+    u_prompt = user_prompt1 + input_name + user_prompt2
     # u_prompt = user_prompt1 + input_name + user_prompt2 + input_length + user_prompt3 + input_name + user_prompt4 + input_fact_gathering
     ##################
 
