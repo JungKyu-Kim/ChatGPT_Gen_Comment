@@ -118,6 +118,7 @@ def add_set():
             content += completions.choices[0].delta.get("content")
         t.markdown(" %s " % content)
 
+    gpt_response
     # model = gpt_response.model
     # output = gpt_response.choices[0]['message']['content']
 
