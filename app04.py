@@ -100,4 +100,5 @@ multi_containers = []
 
 if submitted:
     multi_containers.append(Box().draw_result(input_name, input_fact_gathering, input_grade, input_temperature, input_length))
-    st.write(multi_containers.count)
+    st.write(len(multi_containers))
+    
