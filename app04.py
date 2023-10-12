@@ -33,12 +33,6 @@ temperature_set = {
 }
 temperature_list = list(temperature_set.keys())  
 
-input_name=None
-input_fact_gathering=None
-input_grade=None
-input_temperature=None
-input_length=None
-
 class Input():
     name = None
     fact_gathering = None
@@ -56,13 +50,12 @@ class Input():
 if 'inp' not in st.session_state:
     st.session_state.inp = []
 
-def add_form():
+def add_form(input_name, input_fact_gathering, input_grade, input_temperature, input_length):
     i = Input()
     i.set_result(input_name, input_fact_gathering, input_grade, input_temperature, input_length)
     inp = st.session_state.inp
     inp.append(i)
     st.session_state.inp = inp
-    # st.session_state.inp.append(Input.set_result(input_name, input_fact_gathering, input_grade, input_temperature, input_length))
 
 with st.form(key="my_form"):
     # title and description
@@ -104,7 +97,7 @@ with st.form(key="my_form"):
         format="%d"
         )
 
-    st.form_submit_button("Submit",on_click=add_form)
+    st.form_submit_button("Submit",on_click=add_form(input_name, input_fact_gathering, input_grade, input_temperature, input_length))
 
 def draw_result(input_name, input_fact_gathering, input_grade, input_temperature, input_length):
     st.write('---------------')
