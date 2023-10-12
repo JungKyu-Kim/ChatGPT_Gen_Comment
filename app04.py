@@ -57,7 +57,8 @@ def add_form(input_name, input_fact_gathering, input_grade, input_temperature, i
     inp.append(i)
     st.session_state.inp = inp
 
-with st.form(key="my_form"):
+myForm = st.form(key="my_form")
+with myForm:
     # title and description
     st.title("Peoply FeedbackGPT")
     st.text("Peoply FeedbackGPT 입니다.")
@@ -107,8 +108,8 @@ def draw_result(input_name, input_fact_gathering, input_grade, input_temperature
     st.write('피드백 다양성 :', input_temperature)
     st.write('글자수 :', input_length)
 
-st.session_state.inp
-st.write(len(st.session_state.inp))
+# st.session_state.inp
+# st.write(len(st.session_state.inp))
 
 if(len(st.session_state.inp) > 0):
     for x in range(len(st.session_state.inp)):
