@@ -97,6 +97,7 @@ with col1:
         st.text_area(
             "Fact Gathering",
             init_fact_gathering,
+            height=280,
             key='input_fact_gathering'
             )
 
