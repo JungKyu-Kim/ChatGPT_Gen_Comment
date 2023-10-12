@@ -1,5 +1,9 @@
 import streamlit as st
 import time
+import openai
+
+openai.api_key = st.secrets["api_key"]
+SYSTEM_CONTENT = st.secrets["system_content"]
 
 st.set_page_config(layout="wide")
 
@@ -14,9 +18,6 @@ init_fact_gathering = """
 -3개 과제를 선정하여 산학협력을 추진하였음
 -Vision 품질 검사 모델은 특허 출원하여 사내 AI 역량을 내재화 하였음"""
 
-min_length_of_result = 100
-init_length_of_result = 300
-
 # feedback grade 셋팅값
 grade_set = {
     'Highly Exceeds' : 5,
@@ -29,12 +30,23 @@ grade_list = list(grade_set.keys())
 
 # Temperature 셋팅값
 temperature_set = {
-    '일관적' : 0.5,
+    '일관적' : 0,
     '보통' : 1,
-    '창의적' : 1.5
+    '창의적' : 2
 }
 temperature_list = list(temperature_set.keys())  
 
+# 글자수 셋팅값
+min_length_of_result = 100
+init_length_of_result = 300
+
+# GPT 모델 셋팅값
+model_list = [
+    "gpt-3.5-turbo",
+    "gpt-3.5-turbo-0301"
+]
+
+# Session History
 if 'inp' not in st.session_state:
     st.session_state.inp = []
 
@@ -44,15 +56,17 @@ class Input():
     grade = None
     temperature = None
     length = None
+    SYSTEM_CONTENT = None
 
-    def set_result(self, input_name, input_fact_gathering, input_grade, input_temperature, input_length):
+    def set_result(self, input_name, input_fact_gathering, input_grade, input_temperature, input_length, SYSTEM_CONTENT):
         self.name = input_name
         self.fact_gathering = input_fact_gathering
         self.grade = input_grade
         self.temperature = input_temperature
         self.length = input_length
+        self.SYSTEM_CONTENT = SYSTEM_CONTENT
 
-def add_form():
+def add_input():
     input_name = st.session_state.input_name
     input_fact_gathering = st.session_state.input_fact_gathering
     input_grade_text = st.session_state.input_grade_text
@@ -60,6 +74,34 @@ def add_form():
     input_temperature_text = st.session_state.input_temperature_text
     input_temperature = temperature_set[input_temperature_text]
     input_length = st.session_state.input_length
+    input_model = st.session_state.input_model
+
+    ##################
+
+    ##################
+
+    SYSTEM_CONTENT = SYSTEM_CONTENT + input_name
+
+    # gpt_prompt = [{
+    #     "role": "system",
+    #     "content": SYSTEM_CONTENT
+    # }, {
+    #     "role": "user",
+    #     "content": USER_CONTENT
+    # }]
+
+    # with st.spinner("Waiting for ChatGPT..."):
+    #     gpt_response = openai.ChatCompletion.create(
+    #         # model used here is ChatGPT
+    #         # You can use all these models for this endpoint:
+    #         # gpt-4, gpt-4-0314, gpt-4-32k, gpt-4-32k-0314,
+    #         # gpt-3.5-turbo, gpt-3.5-turbo-0301
+    #         model=input_model,
+    #         messages=gpt_prompt,
+    #         temperature=input_temperature,
+    #         max_tokens=3000,
+    #         top_p=1,
+    #     )
 
     i = Input()
     i.set_result(input_name, input_fact_gathering, input_grade, input_temperature, input_length)
@@ -68,25 +110,27 @@ def add_form():
     inp.append(i)
     st.session_state.inp = inp
 
-def draw_result(input_name, input_fact_gathering, input_grade, input_temperature, input_length):
+def draw_result(input_name, input_fact_gathering, input_grade, input_temperature, input_length, SYSTEM_CONTENT):
     st.write('---------------')
     st.write('이름 :', input_name)
     st.write('Fact Gathering :', input_fact_gathering)
     st.write('피드백 등급 :', input_grade)
     st.write('피드백 다양성 :', input_temperature)
     st.write('글자수 :', input_length)
+    st.write('SYSTEM_CONTENT', SYSTEM_CONTENT)
 
 # st.session_state.inp
 # st.write(len(st.session_state.inp))
 
-st.title("Peoply FeedbackGPT")
+st.title("Peoply 📝FeedbackGPT🤖")
 st.text("피평가자에 대한 MBO 내용을 입력하면, ChatGPT가 MBO 피드백을 생성합니다.")
 
 col1, col2 = st.columns(2)
 
 with col1:
     st.subheader("Input")
-    # Form
+
+    # Input Form
     with st.form(key="my_form"):
         # Name
         st.text_input(
@@ -127,12 +171,20 @@ with col1:
             key='input_length'
             )
 
-        st.form_submit_button("Generate", on_click=add_form)
+        # GPT model
+        st.selectbox(
+            "ChatGPT 모델",
+            model_list,
+            key='input_model'
+        )
+
+        st.form_submit_button("Generate", on_click=add_input)
 
 with col2:
     st.subheader("Result")
 
+    # Result
     if(len(st.session_state.inp) > 0):
         for x in range(len(st.session_state.inp)):
             i = st.session_state.inp[x]
-            draw_result(i.name, i.fact_gathering, i.grade, i.temperature, i.length)
+            draw_result(i.name, i.fact_gathering, i.grade, i.temperature, i.length, i.SYSTEM_CONTENT)
