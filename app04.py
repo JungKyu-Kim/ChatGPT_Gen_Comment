@@ -58,15 +58,15 @@ class Input():
     grade = None
     temperature = None
     length = None
-    SYSTEM_CONTENT = None
+    sys_prompt = None
 
-    def set_result(self, input_name, input_fact_gathering, input_grade, input_temperature, input_length, SYSTEM_CONTENT):
+    def set_result(self, input_name, input_fact_gathering, input_grade, input_temperature, input_length):
         self.name = input_name
         self.fact_gathering = input_fact_gathering
         self.grade = input_grade
         self.temperature = input_temperature
         self.length = input_length
-        self.SYSTEM_CONTENT = SYSTEM_CONTENT
+        self.sys_prompt = SYSTEM_CONTENT + self.name
 
 def add_input():
     input_name = st.session_state.input_name
@@ -81,8 +81,6 @@ def add_input():
     ##################
 
     ##################
-
-    SYSTEM_CONTENT = SYSTEM_CONTENT + input_name
 
     # gpt_prompt = [{
     #     "role": "system",
@@ -112,14 +110,14 @@ def add_input():
     inp.append(i)
     st.session_state.inp = inp
 
-def draw_result(input_name, input_fact_gathering, input_grade, input_temperature, input_length, SYSTEM_CONTENT):
+def draw_result(input_name, input_fact_gathering, input_grade, input_temperature, input_length, sys_prompt):
     st.write('---------------')
     st.write('이름 :', input_name)
     st.write('Fact Gathering :', input_fact_gathering)
     st.write('피드백 등급 :', input_grade)
     st.write('피드백 다양성 :', input_temperature)
     st.write('글자수 :', input_length)
-    st.write('SYSTEM_CONTENT', SYSTEM_CONTENT)
+    st.write('sys_prompt', sys_prompt)
 
 # st.session_state.inp
 # st.write(len(st.session_state.inp))
@@ -189,4 +187,4 @@ with col2:
     if(len(st.session_state.inp) > 0):
         for x in range(len(st.session_state.inp)):
             i = st.session_state.inp[x]
-            draw_result(i.name, i.fact_gathering, i.grade, i.temperature, i.length, i.SYSTEM_CONTENT)
+            draw_result(i.name, i.fact_gathering, i.grade, i.temperature, i.length, i.sys_prompt)
