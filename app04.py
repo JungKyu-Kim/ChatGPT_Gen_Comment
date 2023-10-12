@@ -74,7 +74,7 @@ input_length = st.number_input(
     format="%d"
     )
 
-# submit = st.form_submit_button("Submit")
+submit = st.form_submit_button('Submit')
 
 # if submit:
 #     with st.spinner('Wait for it...'):
