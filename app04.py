@@ -3,7 +3,11 @@ import time
 import openai
 
 openai.api_key = st.secrets["api_key"]
-SYSTEM_CONTENT = st.secrets["system_content"]
+system_content = st.secrets["system_content"]
+user_prompt1 = st.secrets["user_prompt1"]
+user_prompt2 = st.secrets["user_prompt2"]
+user_prompt3 = st.secrets["user_prompt3"]
+user_prompt4 = st.secrets["user_prompt4"]
 
 st.set_page_config(layout="wide")
 
@@ -77,7 +81,8 @@ def add_input():
     input_model = st.session_state.input_model
 
     ##################
-    sys_prompt = SYSTEM_CONTENT + input_name
+    sys_prompt = system_content + input_name
+    u_prompt = user_prompt1 + input_name + user_prompt2 + input_length + user_prompt3 + input_name + user_prompt4 + input_fact_gathering
     ##################
 
     # gpt_prompt = [{
