@@ -53,11 +53,14 @@ class Input():
         self.temperature = input_temperature
         self.length = input_length
 
-multi_input = []
+if 'inp' not in st.session_state:
+    st.session_state.inp = []
+    st.session_state.inp.append(Input(input_name, input_fact_gathering, input_grade, input_temperature, submitted))
+
+st.write(len(st.session_state.inp))
 
 def add_form():
-    multi_input.append(Input(input_name, input_fact_gathering, input_grade, input_temperature, submitted))
-
+    st.session_state.inp.append(Input(input_name, input_fact_gathering, input_grade, input_temperature, submitted))
 
 with st.form(key="my_form"):
     # title and description
@@ -99,7 +102,7 @@ with st.form(key="my_form"):
         format="%d"
         )
 
-    submitted = st.form_submit_button("Submit",on_click=add_form)
+    st.form_submit_button("Submit",on_click=add_form)
 
 def draw_result(input_name, input_fact_gathering, input_grade, input_temperature, input_length):
     st.write('---------------')
@@ -109,5 +112,5 @@ def draw_result(input_name, input_fact_gathering, input_grade, input_temperature
     st.write('피드백 다양성 :', input_temperature)
     st.write('글자수 :', input_length)
 
-for i in multi_input:
+for i in st.session_state.inp:
     draw_result(i.name, i.fact_gathering, i.grade, i.temperature, i.length)
