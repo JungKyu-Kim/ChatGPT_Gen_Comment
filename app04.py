@@ -118,26 +118,27 @@ def add_set():
             content += completions.choices[0].delta.get("content")
         t.markdown(" %s " % content)
 
-    gpt_response
     # model = gpt_response.model
-    # output = gpt_response.choices[0]['message']['content']
+    output = content
 
-    # g = Gen_set()
-    # g.set_result(input_name, input_fact_gathering, input_grade, input_temperature, input_length, model, output)
+    g = Gen_set()
+    g.set_result(input_name, input_fact_gathering, input_grade, input_temperature, input_length, input_model, output)
 
-    # gen = st.session_state.gen
-    # gen.append(g)
-    # st.session_state.gen = gen
+    gen = st.session_state.gen
+    gen.append(g)
+    st.session_state.gen = gen
 
 def draw_result(input_name, input_fact_gathering, input_grade, input_temperature, input_length, p_model, p_output):
     st.write('---------------')
     st.write('이름 :', input_name)
-    st.write('Fact Gathering :', input_fact_gathering)
-    st.write('피드백 등급 :', input_grade)
-    st.write('피드백 다양성 :', input_temperature)
+    st.write('Fact Gathering')
+    st.write(input_fact_gathering)
+    # st.write('피드백 등급 값 :', input_grade)
+    st.write('피드백 다양성 값 :', input_temperature)
     st.write('글자수 :', input_length)
     st.write('GPT모델 :', p_model)
-    st.write('Output :', p_output)
+    st.write('Output')
+    st.write(p_output)
 
 st.title("Peoply 📝FeedbackGPT🤖")
 st.text("피평가자에 대한 MBO 내용을 입력하면, ChatGPT가 MBO 피드백을 생성합니다.")
