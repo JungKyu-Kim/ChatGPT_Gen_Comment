@@ -11,14 +11,6 @@ user_prompt4 = st.secrets["user_prompt4"]
 
 st.set_page_config(layout="wide")
 
-st.write(user_prompt1)
-st.write(user_prompt2)
-st.write(user_prompt3)
-st.write(user_prompt4)
-
-test = user_prompt1 + '홍길동' + user_prompt2 + '홍길동' + user_prompt3 + '홍길동' + user_prompt4 + '홍길동'
-st.write(test)
-
 init_name = '홍길동'
 init_fact_gathering = """
 -산학 협력 과제 3건 달성
