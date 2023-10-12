@@ -70,49 +70,6 @@ class Input():
         self.length = input_length
         self.model = input_model
 
-def add_input():
-    input_name = st.session_state.input_name
-    input_fact_gathering = st.session_state.input_fact_gathering
-    input_grade_text = st.session_state.input_grade_text
-    input_grade = grade_set[input_grade_text]
-    input_temperature_text = st.session_state.input_temperature_text
-    input_temperature = temperature_set[input_temperature_text]
-    input_length = st.session_state.input_length
-    input_model = st.session_state.input_model
-
-    ##################
-    sys_prompt = system_content + input_name
-    usr_prompt = user_prompt1 + input_name + user_prompt2 + str(input_length) + user_prompt3 + input_name + user_prompt4 + input_fact_gathering
-    ##################
-
-    gpt_prompt = [{
-        "role": "system",
-        "content": sys_prompt
-    }, {
-        "role": "user",
-        "content": usr_prompt
-    }]
-
-    with st.spinner("Waiting for ChatGPT..."):
-        gpt_response = openai.ChatCompletion.create(
-            # model used here is ChatGPT
-            # You can use all these models for this endpoint:
-            # gpt-4, gpt-4-0314, gpt-4-32k, gpt-4-32k-0314,
-            # gpt-3.5-turbo, gpt-3.5-turbo-0301
-            model=input_model,
-            messages=gpt_prompt,
-            temperature=input_temperature,
-            max_tokens=3000,
-            top_p=1,
-        )
-
-    i = Input()
-    i.set_result(input_name, input_fact_gathering, input_grade, input_temperature, input_length, input_model)
-
-    inp = st.session_state.inp
-    inp.append(i)
-    st.session_state.inp = inp
-
 def draw_result(input_name, input_fact_gathering, input_grade, input_temperature, input_length, input_model):
     st.write('---------------')
     st.write('이름 :', input_name)
@@ -181,6 +138,49 @@ with col1:
             key='input_model'
         )
 
+        def add_input():
+            input_name = st.session_state.input_name
+            input_fact_gathering = st.session_state.input_fact_gathering
+            input_grade_text = st.session_state.input_grade_text
+            input_grade = grade_set[input_grade_text]
+            input_temperature_text = st.session_state.input_temperature_text
+            input_temperature = temperature_set[input_temperature_text]
+            input_length = st.session_state.input_length
+            input_model = st.session_state.input_model
+
+            ##################
+            sys_prompt = system_content + input_name
+            usr_prompt = user_prompt1 + input_name + user_prompt2 + str(input_length) + user_prompt3 + input_name + user_prompt4 + input_fact_gathering
+            ##################
+
+            gpt_prompt = [{
+                "role": "system",
+                "content": sys_prompt
+            }, {
+                "role": "user",
+                "content": usr_prompt
+            }]
+
+            with st.spinner("Waiting for ChatGPT..."):
+                gpt_response = openai.ChatCompletion.create(
+                    # model used here is ChatGPT
+                    # You can use all these models for this endpoint:
+                    # gpt-4, gpt-4-0314, gpt-4-32k, gpt-4-32k-0314,
+                    # gpt-3.5-turbo, gpt-3.5-turbo-0301
+                    model=input_model,
+                    messages=gpt_prompt,
+                    temperature=input_temperature,
+                    max_tokens=3000,
+                    top_p=1,
+                )
+
+            i = Input()
+            i.set_result(input_name, input_fact_gathering, input_grade, input_temperature, input_length, input_model)
+
+            inp = st.session_state.inp
+            inp.append(i)
+            st.session_state.inp = inp
+        
         st.form_submit_button("Generate", on_click=add_input)
 
 with col2:
