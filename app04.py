@@ -34,9 +34,9 @@ grade_list = list(grade_set.keys())
 
 # Temperature 셋팅값
 temperature_set = {
-    '일관적' : 0,
+    '일관적' : 0.5,
     '보통' : 1,
-    '창의적' : 2
+    '창의적' : 1.5
 }
 temperature_list = list(temperature_set.keys())  
 
