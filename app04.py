@@ -83,14 +83,12 @@ class Box():
     temperature = None
     length = None
 
-    def set_result(self, input_name, input_fact_gathering, input_grade, input_temperature, input_length):
+    def draw_result(self, input_name, input_fact_gathering, input_grade, input_temperature, input_length):
         self.name = input_name
         self.fact_gathering = input_fact_gathering
         self.grade = input_grade
         self.temperature = input_temperature
         self.length = input_length
-
-    def draw_result(self):
         st.write('---------------')
         st.write('이름 :', self.name)
         st.write('Fact Gathering :', self.fact_gathering)
@@ -99,9 +97,4 @@ class Box():
         st.write('글자수 :', self.length)
 
 if submitted:
-    a = Box()
-    a.set_result(input_name, input_fact_gathering, input_grade, input_temperature, input_length)
-    a.draw_result()
-    with st.spinner('Wait for it...'):
-        time.sleep(5)
-    st.success('Done!')
+    Box().draw_result(input_name, input_fact_gathering, input_grade, input_temperature, input_length)
