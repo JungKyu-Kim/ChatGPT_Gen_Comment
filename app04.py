@@ -50,15 +50,24 @@ class Input():
 if 'inp' not in st.session_state:
     st.session_state.inp = []
 
-def add_form(input_name, input_fact_gathering, input_grade, input_temperature, input_length):
+def add_form():
+    input_name = st.session_state.input_name
+    input_fact_gathering = st.session_state.input_fact_gathering
+    input_grade_text = st.session_state.input_grade_text
+    input_grade = grade_set[input_grade_text]
+    input_temperature_text = st.session_state.input_temperature_text
+    input_temperature = temperature_set[input_temperature_text]
+    input_length = st.session_state.input_length
+
     i = Input()
     i.set_result(input_name, input_fact_gathering, input_grade, input_temperature, input_length)
+
     inp = st.session_state.inp
     inp.append(i)
     st.session_state.inp = inp
 
-myForm = st.form(key="my_form")
-with myForm:
+# Form
+with st.form(key="my_form"):
     # title and description
     st.title("Peoply FeedbackGPT")
     st.text("Peoply FeedbackGPT 입니다.")
@@ -66,39 +75,42 @@ with myForm:
     # Name
     input_name = st.text_input(
         '이름',
-        init_name
+        init_name,
+        key='input_name'
         )
 
     # fact_gathering text area
     input_fact_gathering = st.text_area(
         "Fact Gathering",
-        init_fact_gathering
+        init_fact_gathering,
+        key='input_fact_gathering'
         )
 
     # feedback grade
-    input_grade_text = st.selectbox(
+    st.selectbox(
         '피드백 등급',
         grade_list,
-        index=2
+        index=2,
+        key='input_grade_text'
         )
-    input_grade = grade_set[input_grade_text]
 
     # Temperature
-    input_temperature_text = st.select_slider(
+    st.select_slider(
         '피드백 다양성',
-        options=temperature_list
+        options=temperature_list,
+        key='input_temperature_text'
         )
-    input_temperature = temperature_set[input_temperature_text]
 
     # length of result
-    input_length = st.number_input(
+    st.number_input(
         '글자수',
         min_value=min_length_of_result,
         value=init_length_of_result,
-        format="%d"
+        format="%d",
+        key='input_length'
         )
 
-    st.form_submit_button("Submit",on_click=add_form(input_name, input_fact_gathering, input_grade, input_temperature, input_length))
+    st.form_submit_button("Generate", on_click=add_form)
 
 def draw_result(input_name, input_fact_gathering, input_grade, input_temperature, input_length):
     st.write('---------------')
@@ -108,8 +120,8 @@ def draw_result(input_name, input_fact_gathering, input_grade, input_temperature
     st.write('피드백 다양성 :', input_temperature)
     st.write('글자수 :', input_length)
 
-# st.session_state.inp
-# st.write(len(st.session_state.inp))
+st.session_state.inp
+st.write(len(st.session_state.inp))
 
 if(len(st.session_state.inp) > 0):
     for x in range(len(st.session_state.inp)):
