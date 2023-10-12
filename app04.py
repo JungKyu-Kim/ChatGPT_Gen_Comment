@@ -34,52 +34,52 @@ temperature_set = {
 temperature_list = list(temperature_set.keys())  
 
 
+with st.form("my_form"):
+    # title and description
+    st.title("Peoply FeedbackGPT")
+    st.text("Peoply FeedbackGPT 입니다.")
 
-# title and description
-st.title("Peoply FeedbackGPT")
-st.text("Peoply FeedbackGPT 입니다.")
+    # Name
+    input_name = st.text_input(
+        '이름',
+        init_name
+        )
 
-# Name
-input_name = st.text_input(
-    '이름',
-    init_name
-    )
+    # fact_gathering text area
+    input_fact_gathering = st.text_area(
+        "Fact Gathering",
+        init_fact_gathering
+        )
 
-# fact_gathering text area
-input_fact_gathering = st.text_area(
-    "Fact Gathering",
-    init_fact_gathering
-    )
+    # feedback grade
+    input_grade_text = st.selectbox(
+        '피드백 등급',
+        grade_list,
+        index=2
+        )
+    input_grade = grade_set[input_grade_text]
 
-# feedback grade
-input_grade_text = st.selectbox(
-    '피드백 등급',
-    grade_list,
-    index=2
-    )
-input_grade = grade_set[input_grade_text]
+    # Temperature
+    input_temperature_text = st.select_slider(
+        '피드백 다양성',
+        options=temperature_list
+        )
+    input_temperature = temperature_set[input_temperature_text]
 
-# Temperature
-input_temperature_text = st.select_slider(
-    '피드백 다양성',
-    options=temperature_list
-    )
-input_temperature = temperature_set[input_temperature_text]
+    # length of result
+    input_length = st.number_input(
+        '글자수',
+        min_value=min_length_of_result,
+        value=init_length_of_result,
+        format="%d"
+        )
 
-# length of result
-input_length = st.number_input(
-    '글자수',
-    min_value=min_length_of_result,
-    value=init_length_of_result,
-    format="%d"
-    )
+    submitted = st.form_submit_button("Submit")
 
-submit = st.form_submit_button('Submit')
-
-# if submit:
-#     with st.spinner('Wait for it...'):
-#         time.sleep(5)
-#     st.success('Done!')
+if submitted:
+    with st.spinner('Wait for it...'):
+        time.sleep(5)
+    st.success('Done!')
 
 st.write('---------------')
 st.write('이름 :', input_name)
