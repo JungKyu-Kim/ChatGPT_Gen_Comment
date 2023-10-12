@@ -1,6 +1,8 @@
 import streamlit as st
 import time
 
+st.set_page_config(layout="wide")
+
 init_name = '홍길동'
 init_fact_gathering = """
 -산학 협력 과제 3건 달성
