@@ -77,7 +77,7 @@ def add_input():
     input_model = st.session_state.input_model
 
     ##################
-    sys_prompt = SYSTEM_CONTENT + input_name
+    # sys_prompt = SYSTEM_CONTENT + input_name
     ##################
 
     # gpt_prompt = [{
