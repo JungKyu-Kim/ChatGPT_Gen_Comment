@@ -7,6 +7,8 @@ SYSTEM_CONTENT = st.secrets["system_content"]
 
 st.set_page_config(layout="wide")
 
+st.write(SYSTEM_CONTENT)
+
 init_name = '홍길동'
 init_fact_gathering = """
 -산학 협력 과제 3건 달성
