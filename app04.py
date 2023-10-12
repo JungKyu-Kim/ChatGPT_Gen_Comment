@@ -96,5 +96,7 @@ class Box():
         st.write('피드백 다양성 :', self.temperature)
         st.write('글자수 :', self.length)
 
+multi_containers = []
+
 if submitted:
-    Box().draw_result(input_name, input_fact_gathering, input_grade, input_temperature, input_length)
+    multi_containers.append(Box().draw_result(input_name, input_fact_gathering, input_grade, input_temperature, input_length))
