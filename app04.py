@@ -108,7 +108,15 @@ def add_set():
             top_p=1,
             stream=True
         )
-    gpt_response
+
+    t = st.empty()
+    content = ""
+    counter = 0
+    for completions in gpt_response:
+        counter += 1
+        if "content" in completions.choices[0].delta:
+            content += completions.choices[0].delta.get("content")
+        t.markdown(" %s " % content)
 
     # model = gpt_response.model
     # output = gpt_response.choices[0]['message']['content']
