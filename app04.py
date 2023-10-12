@@ -106,15 +106,16 @@ with st.form(key="my_form"):
 
     st.form_submit_button("Submit",on_click=add_form)
 
-# def draw_result(input_name, input_fact_gathering, input_grade, input_temperature, input_length):
-#     st.write('---------------')
-#     st.write('이름 :', input_name)
-#     st.write('Fact Gathering :', input_fact_gathering)
-#     st.write('피드백 등급 :', input_grade)
-#     st.write('피드백 다양성 :', input_temperature)
-#     st.write('글자수 :', input_length)
+def draw_result(input_name, input_fact_gathering, input_grade, input_temperature, input_length):
+    st.write('---------------')
+    st.write('이름 :', input_name)
+    st.write('Fact Gathering :', input_fact_gathering)
+    st.write('피드백 등급 :', input_grade)
+    st.write('피드백 다양성 :', input_temperature)
+    st.write('글자수 :', input_length)
 
 st.session_state.inp
 st.write(len(st.session_state.inp))
-# for i in st.session_state.inp():
-#     draw_result(i.name, i.fact_gathering, i.grade, i.temperature, i.length)
+
+for i in st.session_state.inp():
+    draw_result(i.name, i.fact_gathering, i.grade, i.temperature, i.length)
