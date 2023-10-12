@@ -1,4 +1,5 @@
 import streamlit as st
+import time
 
 init_name = '홍길동'
 init_fact_gathering = """
@@ -32,51 +33,57 @@ temperature_set = {
 }
 temperature_list = list(temperature_set.keys())  
 
-def draw_ui():
-    # title and description
-    st.title("Peoply FeedbackGPT")
-    st.text("Peoply FeedbackGPT 입니다.")
 
-    # Name
-    input_name = st.text_input(
-        '이름',
-        init_name
-        )
 
-    # fact_gathering text area
-    input_fact_gathering = st.text_area(
-        "Fact Gathering",
-        init_fact_gathering
-        )
+# title and description
+st.title("Peoply FeedbackGPT")
+st.text("Peoply FeedbackGPT 입니다.")
 
-    # feedback grade
-    input_grade_text = st.selectbox(
-        '피드백 등급',
-        grade_list,
-        index=2
-        )
-    input_grade = grade_set[input_grade_text]
+# Name
+input_name = st.text_input(
+    '이름',
+    init_name
+    )
 
-    # Temperature
-    input_temperature_text = st.select_slider(
-        '피드백 다양성',
-        options=temperature_list
-        )
-    input_temperature = temperature_set[input_temperature_text]
+# fact_gathering text area
+input_fact_gathering = st.text_area(
+    "Fact Gathering",
+    init_fact_gathering
+    )
 
-    # length of result
-    input_length = st.number_input(
-        '글자수',
-        min_value=min_length_of_result,
-        value=init_length_of_result,
-        format="%d"
-        )
+# feedback grade
+input_grade_text = st.selectbox(
+    '피드백 등급',
+    grade_list,
+    index=2
+    )
+input_grade = grade_set[input_grade_text]
 
-    st.write('---------------')
-    st.write('이름 :', input_name)
-    st.write('Fact Gathering :', input_fact_gathering)
-    st.write('피드백 등급 :', input_grade)
-    st.write('피드백 다양성 :', input_temperature)
-    st.write('글자수 :', input_length)
+# Temperature
+input_temperature_text = st.select_slider(
+    '피드백 다양성',
+    options=temperature_list
+    )
+input_temperature = temperature_set[input_temperature_text]
 
-draw_ui()
+# length of result
+input_length = st.number_input(
+    '글자수',
+    min_value=min_length_of_result,
+    value=init_length_of_result,
+    format="%d"
+    )
+
+submit = st.form_submit_button("Submit")
+
+if submit:
+    with st.spinner('Wait for it...'):
+        time.sleep(5)
+    st.success('Done!')
+
+st.write('---------------')
+st.write('이름 :', input_name)
+st.write('Fact Gathering :', input_fact_gathering)
+st.write('피드백 등급 :', input_grade)
+st.write('피드백 다양성 :', input_temperature)
+st.write('글자수 :', input_length)
