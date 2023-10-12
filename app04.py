@@ -33,6 +33,9 @@ temperature_set = {
 }
 temperature_list = list(temperature_set.keys())  
 
+if 'inp' not in st.session_state:
+    st.session_state.inp = []
+
 class Input():
     name = None
     fact_gathering = None
@@ -46,9 +49,6 @@ class Input():
         self.grade = input_grade
         self.temperature = input_temperature
         self.length = input_length
-
-if 'inp' not in st.session_state:
-    st.session_state.inp = []
 
 def add_form():
     input_name = st.session_state.input_name
@@ -66,52 +66,6 @@ def add_form():
     inp.append(i)
     st.session_state.inp = inp
 
-# Form
-with st.form(key="my_form"):
-    # title and description
-    st.title("Peoply FeedbackGPT")
-    st.text("Peoply FeedbackGPT 입니다.")
-
-    # Name
-    input_name = st.text_input(
-        '이름',
-        init_name,
-        key='input_name'
-        )
-
-    # fact_gathering text area
-    input_fact_gathering = st.text_area(
-        "Fact Gathering",
-        init_fact_gathering,
-        key='input_fact_gathering'
-        )
-
-    # feedback grade
-    st.selectbox(
-        '피드백 등급',
-        grade_list,
-        index=2,
-        key='input_grade_text'
-        )
-
-    # Temperature
-    st.select_slider(
-        '피드백 다양성',
-        options=temperature_list,
-        key='input_temperature_text'
-        )
-
-    # length of result
-    st.number_input(
-        '글자수',
-        min_value=min_length_of_result,
-        value=init_length_of_result,
-        format="%d",
-        key='input_length'
-        )
-
-    st.form_submit_button("Generate", on_click=add_form)
-
 def draw_result(input_name, input_fact_gathering, input_grade, input_temperature, input_length):
     st.write('---------------')
     st.write('이름 :', input_name)
@@ -120,10 +74,65 @@ def draw_result(input_name, input_fact_gathering, input_grade, input_temperature
     st.write('피드백 다양성 :', input_temperature)
     st.write('글자수 :', input_length)
 
-st.session_state.inp
-st.write(len(st.session_state.inp))
+# st.session_state.inp
+# st.write(len(st.session_state.inp))
 
-if(len(st.session_state.inp) > 0):
-    for x in range(len(st.session_state.inp)):
-        i = st.session_state.inp[x]
-        draw_result(i.name, i.fact_gathering, i.grade, i.temperature, i.length)
+
+
+col1, col2 = st.columns(2)
+
+st.title("Peoply FeedbackGPT")
+st.text("피평가자에 대한 MBO 내용을 입력하면, ChatGPT가 MBO 피드백을 생성합니다.")
+
+with col1:
+    st.subheader("Input")
+    # Form
+    with st.form(key="my_form"):
+        # Name
+        st.text_input(
+            '이름',
+            init_name,
+            key='input_name'
+            )
+
+        # fact_gathering text area
+        st.text_area(
+            "Fact Gathering",
+            init_fact_gathering,
+            key='input_fact_gathering'
+            )
+
+        # feedback grade
+        st.selectbox(
+            '피드백 등급',
+            grade_list,
+            index=2,
+            key='input_grade_text'
+            )
+
+        # Temperature
+        st.select_slider(
+            '피드백 다양성',
+            options=temperature_list,
+            # value=2,
+            key='input_temperature_text'
+            )
+
+        # length of result
+        st.number_input(
+            '글자수',
+            min_value=min_length_of_result,
+            value=init_length_of_result,
+            format="%d",
+            key='input_length'
+            )
+
+        st.form_submit_button("Generate", on_click=add_form)
+
+with col2:
+    st.subheader("Result")
+
+    if(len(st.session_state.inp) > 0):
+        for x in range(len(st.session_state.inp)):
+            i = st.session_state.inp[x]
+            draw_result(i.name, i.fact_gathering, i.grade, i.temperature, i.length)
