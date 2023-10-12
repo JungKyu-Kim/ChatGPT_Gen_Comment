@@ -112,7 +112,7 @@ with col1:
         st.select_slider(
             '피드백 다양성',
             options=temperature_list,
-            # value=2,
+            value=2,
             key='input_temperature_text'
             )
 
