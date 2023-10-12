@@ -51,26 +51,28 @@ model_list = [
 ]
 
 # Session History
-if 'inp' not in st.session_state:
-    st.session_state.inp = []
+if 'gen' not in st.session_state:
+    st.session_state.gen = []
 
-class Input():
+class Gen_set():
     name = None
     fact_gathering = None
     grade = None
     temperature = None
     length = None
     model = None
+    output = None
 
-    def set_result(self, input_name, input_fact_gathering, input_grade, input_temperature, input_length, input_model):
+    def set_result(self, input_name, input_fact_gathering, input_grade, input_temperature, input_length, p_model, p_output):
         self.name = input_name
         self.fact_gathering = input_fact_gathering
         self.grade = input_grade
         self.temperature = input_temperature
         self.length = input_length
-        self.model = input_model
+        self.model = p_model
+        self.output = p_output
 
-def add_input():
+def add_set():
     input_name = st.session_state.input_name
     input_fact_gathering = st.session_state.input_fact_gathering
     input_grade_text = st.session_state.input_grade_text
@@ -106,23 +108,25 @@ def add_input():
             top_p=1,
         )
 
-    gpt_response
+    model = gpt_response.model
+    output = gpt_response.choices[0]['message']['content']
 
-    i = Input()
-    i.set_result(input_name, input_fact_gathering, input_grade, input_temperature, input_length, input_model)
+    g = Gen_set()
+    g.set_result(input_name, input_fact_gathering, input_grade, input_temperature, input_length, model, output)
 
-    inp = st.session_state.inp
-    inp.append(i)
-    st.session_state.inp = inp
+    gen = st.session_state.gen
+    gen.append(g)
+    st.session_state.gen = gen
 
-def draw_result(input_name, input_fact_gathering, input_grade, input_temperature, input_length, input_model):
+def draw_result(input_name, input_fact_gathering, input_grade, input_temperature, input_length, p_model, p_output):
     st.write('---------------')
     st.write('이름 :', input_name)
     st.write('Fact Gathering :', input_fact_gathering)
     st.write('피드백 등급 :', input_grade)
     st.write('피드백 다양성 :', input_temperature)
     st.write('글자수 :', input_length)
-    st.write('GPT모델 :', input_model)
+    st.write('GPT모델 :', p_model)
+    st.write('Output :', p_output)
 
 # st.session_state.inp
 # st.write(len(st.session_state.inp))
@@ -183,13 +187,13 @@ with col1:
             key='input_model'
         )
 
-        st.form_submit_button("Generate", on_click=add_input)
+        st.form_submit_button("Generate", on_click=add_set)
 
 with col2:
     st.subheader("Result")
 
     # Result
-    if(len(st.session_state.inp) > 0):
-        for x in range(len(st.session_state.inp)):
-            i = st.session_state.inp[x]
-            draw_result(i.name, i.fact_gathering, i.grade, i.temperature, i.length, i.model)
+    if(len(st.session_state.gen) > 0):
+        for i in range(len(st.session_state.gen)):
+            set = st.session_state.gen[i]
+            draw_result(set.name, set.fact_gathering, set.grade, set.temperature, set.length, set.model, set.output)
