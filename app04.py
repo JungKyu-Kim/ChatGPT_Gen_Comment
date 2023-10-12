@@ -117,5 +117,7 @@ def draw_result(input_name, input_fact_gathering, input_grade, input_temperature
 st.session_state.inp
 st.write(len(st.session_state.inp))
 
-for i in st.session_state.inp():
-    draw_result(i.name, i.fact_gathering, i.grade, i.temperature, i.length)
+st.session_state.inp[0]
+
+# for i in st.session_state.inp():
+#     draw_result(i.name, i.fact_gathering, i.grade, i.temperature, i.length)
