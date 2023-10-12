@@ -77,12 +77,10 @@ def draw_result(input_name, input_fact_gathering, input_grade, input_temperature
 # st.session_state.inp
 # st.write(len(st.session_state.inp))
 
-
-
-col1, col2 = st.columns(2)
-
 st.title("Peoply FeedbackGPT")
 st.text("피평가자에 대한 MBO 내용을 입력하면, ChatGPT가 MBO 피드백을 생성합니다.")
+
+col1, col2 = st.columns(2)
 
 with col1:
     st.subheader("Input")
